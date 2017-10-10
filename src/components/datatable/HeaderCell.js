@@ -13,12 +13,15 @@ export class HeaderCell extends Component {
     }
 
     onClick(e) {
+        console.log('OnClick', e);
         if(this.props.sortable) {
             this.props.onSort({
                 originalEvent: e,
                 sortField: this.props.field
             });
         }
+      e.preventDefault(); // Leave children alone
+      e.stopPropagation(); // Don't bubble to parent
     }
 
     onFilterInput(e) {
@@ -36,9 +39,11 @@ export class HeaderCell extends Component {
                 this.filterTimeout = null;            
             }, this.filterDelay);
         }
+      e.stopPropagation(); // Don't bubble to parent
     }
 
     onMouseDown(event) {
+      console.log('onMouseDown', event);
         if(this.props.resizableColumns && this.props.onColumnResizeStart) {
             this.props.onColumnResizeStart({
                 originalEvent: event,
@@ -52,6 +57,8 @@ export class HeaderCell extends Component {
             else if(event.target.nodeName === 'INPUT')
                 this.el.draggable = false;
         }
+      event.preventDefault(); // Leave children alone
+      event.stopPropagation(); // Don't bubble to parent
     }
 
     getMultiSortMetaData() {
