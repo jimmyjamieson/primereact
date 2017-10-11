@@ -13,18 +13,20 @@ export class HeaderCell extends Component {
     }
 
     onClick(e) {
-        console.log('OnClick', e);
+        console.log('onClick', e);
+        e.stopPropagation(); // Don't bubble to parent
+        e.nativeEvent.stopImmediatePropagation();
         if(this.props.sortable) {
             this.props.onSort({
                 originalEvent: e,
                 sortField: this.props.field
             });
         }
-      e.preventDefault(); // Leave children alone
-      e.stopPropagation(); // Don't bubble to parent
     }
 
     onFilterInput(e) {
+        e.stopPropagation(); // Don't bubble to parent
+        e.nativeEvent.stopImmediatePropagation();
         if(this.props.filter && this.props.onFilter) {
             if(this.filterTimeout) {
                 clearTimeout(this.filterTimeout);
@@ -39,7 +41,6 @@ export class HeaderCell extends Component {
                 this.filterTimeout = null;            
             }, this.filterDelay);
         }
-      e.stopPropagation(); // Don't bubble to parent
     }
 
     onMouseDown(event) {
