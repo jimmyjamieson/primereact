@@ -33,7 +33,7 @@ export class HeaderCell extends Component {
                     value: filterValue,
                     field: this.props.field
                 });
-                this.filterTimeout = null;            
+                this.filterTimeout = null;
             }, this.filterDelay);
         }
     }
@@ -45,7 +45,7 @@ export class HeaderCell extends Component {
                 columnEl: event.target.parentElement
             });
         }
-        
+
         if(this.props.reorderableColumns) {
             if(event.target.nodeName !== 'INPUT')
                 this.el.draggable = true;
@@ -74,15 +74,15 @@ export class HeaderCell extends Component {
         let resizer = this.props.resizableColumns && <span className="ui-column-resizer ui-clickable" onMouseDown={this.onMouseDown}></span>;
         let sortIconElement, filterElement, headerCheckbox;
 
-        if(singleSorted) 
+        if(singleSorted)
             sortOrder = this.props.sortOrder;
-        else if(multipleSorted) 
+        else if(multipleSorted)
             sortOrder = multiSortMetaData.order;
 
         let sorted = this.props.sortable && (singleSorted || multipleSorted);
-        let className = classNames('ui-state-default ui-unselectable-text', 
-                        {'ui-sortable-column': this.props.sortable, 
-                        'ui-state-active': sorted, 
+        let className = classNames('ui-state-default ui-unselectable-text',
+                        {'ui-sortable-column': this.props.sortable,
+                        'ui-state-active': sorted,
                         'ui-resizable-column': this.props.resizableColumns,
                         'ui-selection-column': this.props.selectionMode}, this.props.className);
 
@@ -92,8 +92,11 @@ export class HeaderCell extends Component {
         }
 
         if(this.props.filter) {
-            filterElement = this.props.filterElement||<InputText onInput={this.onFilterInput} type={this.props.filterType}
-                        className="ui-column-filter" placeholder={this.props.filterPlaceholder} maxLength={this.props.filterMaxLength} />;
+            filterElement = <div onClick={(e)=> e.stopPropagation()}>{
+                    this.props.filterElement ||
+                    <InputText onInput={this.onFilterInput} type={this.props.filterType}
+                        className="ui-column-filter" placeholder={this.props.filterPlaceholder} maxLength={this.props.filterMaxLength} />
+                }</div>;
         }
 
         if(this.props.selectionMode === 'multiple') {
@@ -101,7 +104,7 @@ export class HeaderCell extends Component {
         }
 
         return (
-            <th ref={(el) => this.el = el} 
+            <th ref={(el) => this.el = el}
                 className={className} style={this.props.style} onClick={this.onClick} onMouseDown={this.onMouseDown}
                 colSpan={this.props.colSpan} rowSpan={this.props.rowSpan}
                 onDragStart={this.props.onDragStart} onDragOver={this.props.onDragOver} onDragLeave={this.props.onDragLeave} onDrop={this.props.onDrop}>

@@ -20,7 +20,6 @@ export class InputText extends Component {
 
     onInput(e) {
         e.stopPropagation();
-        console.log('onInput');
         if(this.props.onInput) {
             this.props.onInput(e);
         }
@@ -42,10 +41,10 @@ export class InputText extends Component {
         else
             this.inputEl.classList.remove('ui-state-filled');
     }
-    
+
     componentDidMount() {
         let _value =  this.props.value||this.props.defaultValue;
-        
+
         this.updateFilledState(_value);
     }
 
